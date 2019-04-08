@@ -10,6 +10,6 @@
 
 <div align="center">
 
-欢迎关注我的微信公众号JackidSAMA,文章同步于微信公众号。
+欢迎关注我的微信公众号JackidSAMA,文章同步于微信公众号。<br/>
 <img src="./wechat_qrcode.jpg" width="150"/>
 </div>
