@@ -1,0 +1,57 @@
+package problem06;
+
+import java.util.Arrays;
+
+/**
+ * @author Jackid
+ * JDK-version:1.8
+ * Problem:牛客网-剑指offer《旋转数组的最小数字》
+ * Result:已通过了所有的测试用例
+ */
+
+/*题目描述:
+把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 
+例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。*/
+
+public class Solution {
+	public int minNumberInRotateArray(int[] array) {
+
+		int start = 0;//指针start指向数组第一个元素
+		int end = array.length - 1;//指针end指向数组最后一个元素
+
+		while (start < end) {// 数组元素大于1的时候进入循环
+			if (array[start] < array[end]) {// 如果数组的最后一个元素大于第一个元素，则说明该数组旋转了0个元素，该情况直接返回数组第一个元素
+				return array[start];
+			}
+
+			if (end - start == 1) {// 如果前后下标相差1，则说明数组最小的数是end指针指向的元素，直接返回array[end]
+				return array[end];
+			}
+
+			int mid = (start + end) / 2;// 把mid指针进行更新
+
+			if (array[start] == array[end] && array[mid] == array[end]) {// 如果start、mid、end指针指向的元素均相等，则需要通过顺序查找确定该范围内数组的最小元素
+				return eachFind(array, start, end);
+			}
+
+			// 上述情况都没被拦截下来时，进行核心操作
+			if (array[start] <= array[mid]) {// 当mid指向的元素不小于start指向的元素时，说明最小的元素在该范围的右半部分，把mid赋值给start
+				start = mid;
+			} else if (array[end] >= array[mid]) {// 当mid指向的元素不大于end指向的元素时，说明最小的元素在该范围的右半部分，把mid赋值给end
+				end = mid;
+			}
+
+		}
+
+		return start == end ? array[start] : 0;// 数组长度为1时，返回第一个元素；数组长度为0时，返回0
+	}
+
+	public int eachFind(int[] array, int start, int end) {// 顺序查找
+		int result = Integer.MAX_VALUE;
+		for (int i : Arrays.copyOfRange(array, start, end)) {// 按所给的范围遍历
+			result = result < i ? result : i;
+		}
+		return result;// 返回结果
+	}
+
+}
