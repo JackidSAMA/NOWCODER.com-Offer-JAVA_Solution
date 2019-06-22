@@ -20,21 +20,23 @@ public class ListNode {
    }
 }
 */
+// 使用递归方法解答
 public class Solution {
 	public ListNode deleteDuplication(ListNode pHead) {
-		if (pHead==null||pHead.next==null) {
+		if (pHead == null || pHead.next == null) {// 判断传进来的结点是否为null或者它的下一个结点是否为null
 			return pHead;
 		}
-		
-		if (pHead.val==pHead.next.val) {
-			ListNode current=pHead.next;
-			while(current!=null&&current.val==pHead.val)
+
+		if (pHead.val == pHead.next.val) {// 当前结点的值和它的下一个结点的值是一样时，返回与该值不同的结点
+			ListNode current = pHead.next;
+			while (current != null && current.val == pHead.val)// 不断地往下搜索，不断地更新current
 			{
-				current=current.next;
+				current = current.next;
 			}
 			return deleteDuplication(current);
-		}else {
-			pHead.next=deleteDuplication(pHead.next);
+		} else {
+			// 当前结点的值和它的下一个结点的值不一样时，把该结点的next指针指向本函数的返回值(传入参数为该结点的下一结点，起到一个鉴定的作用)，最后返回该结点
+			pHead.next = deleteDuplication(pHead.next);
 			return pHead;
 		}
 	}
